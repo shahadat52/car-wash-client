@@ -1,9 +1,53 @@
-import React from 'react';
+import { useState } from 'react';
+import { FieldValues, useForm } from 'react-hook-form';
+import { ColorRing } from 'react-loader-spinner';
+import { NavLink } from 'react-router-dom';
 
 const Register = () => {
+    const [loading, setLoading] = useState(false)
+    const { register, handleSubmit } = useForm()
+
+    const handleForm = (data: FieldValues) => {
+        setLoading(true)
+        console.log(data);
+        setLoading(false)
+    }
     return (
-        <div>
-            <h1>This is Register page</h1>
+        <div className=" flex justify-center items-center h-[100vh] ">
+
+            <form onSubmit={handleSubmit(handleForm)} className="shadow-lg py-20 pb-5 px-14 rounded-md bg-gray-200">
+                <h1 className="font-bold text-center mb-10">Sign up your Account</h1>
+                <div>
+                    <p>Name</p>
+                    <input type="text" placeholder="Enter Name" className="input input-bordered w-full max-w-xs" autoComplete="Name" {...register('name')} required />
+                </div>
+                <div>
+                    <p>Email</p>
+                    <input type="text" placeholder="Enter Email" className="input input-bordered w-full max-w-xs" autoComplete="email" {...register('email')} required />
+                </div>
+                <div>
+                    <p>Password</p>
+                    <input type="password" placeholder="Enter Password" className="input input-bordered w-full max-w-xs" autoComplete="password"  {...register('password')} required />
+                </div>
+                <div className="w-full flex justify-center mt-10" >
+
+                    {
+                        loading ? <ColorRing
+                            visible={true}
+                            height="80"
+                            width="80"
+                            ariaLabel="color-ring-loading"
+                            wrapperStyle={{}}
+                            wrapperClass="color-ring-wrapper"
+                            colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+                        /> : <input type="submit" className="input input-bordered " />
+
+
+                    }
+
+                </div>
+                <p>Already have account, so please <NavLink to='/Login' className='font-bold link uppercase'>Login</NavLink></p>
+            </form>
         </div>
     );
 };

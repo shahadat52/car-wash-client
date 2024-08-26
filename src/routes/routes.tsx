@@ -3,6 +3,8 @@ import App from "../App";
 import Home from "../pages/Home";
 import Service from "../pages/Service";
 import Booking from "../pages/Booking";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
 
 export const router = createBrowserRouter([
     {
@@ -20,6 +22,15 @@ export const router = createBrowserRouter([
             {
                 path: '/booking',
                 element: <Booking />
+            },
+            {
+                path: '/login',
+                element: <Login />
+            }
+            ,
+            {
+                path: '/register',
+                element: <Register />
             }
         ]
     }

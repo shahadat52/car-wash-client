@@ -29,7 +29,7 @@ const Navbar = () => {
                             <NavLink to={'#'} className="mr-5">Booking</NavLink>
                             <NavLink to={'/reviews'} className="mr-5">Reviews</NavLink>
                             <NavLink to={'#'} className="mr-5">Dashboard</NavLink>
-                            <NavLink to={'#'} className="">Login</NavLink>
+                            <NavLink to={'/login'} className="">Login</NavLink>
 
                         </ul>
                     </div>
@@ -42,7 +42,8 @@ const Navbar = () => {
                         <NavLink to={'/booking'} className="mr-5">Booking</NavLink>
                         <NavLink to={'/reviews'} className="mr-5">Reviews</NavLink>
                         <NavLink to={'#'} className="mr-5">Dashboard</NavLink>
-                        <NavLink to={'#'} className="">Login</NavLink>
+                        <NavLink to={'/login'} className="">Login</NavLink>
+
                     </ul>
                 </div>
 
