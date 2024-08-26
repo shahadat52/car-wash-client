@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 const Navbar = () => {
     return (
         <div>
-            <div className="navbar bg-base-100">
+            <div className="navbar text-white">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn lg:hidden ">
@@ -24,11 +24,12 @@ const Navbar = () => {
                         <ul
                             tabIndex={0}
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            <NavLink to={'/home'}><p>Home</p></NavLink>
-                            <NavLink to={'#'}><a>Service</a></NavLink>
-                            <NavLink to={'#'}><a>Booking</a></NavLink>
-                            <NavLink to={'#'}>Dashboard</NavLink>
-                            <NavLink to={'#'}><a>Login</a></NavLink>
+                            <NavLink to={'/home'} className="mr-5">Home</NavLink>
+                            <NavLink to={'/services'} className="mr-5">Services</NavLink>
+                            <NavLink to={'#'} className="mr-5">Booking</NavLink>
+                            <NavLink to={'/reviews'} className="mr-5">Reviews</NavLink>
+                            <NavLink to={'#'} className="mr-5">Dashboard</NavLink>
+                            <NavLink to={'#'} className="">Login</NavLink>
 
                         </ul>
                     </div>
@@ -36,11 +37,12 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-end hidden lg:flex">
                     <ul className="menu menu-horizontal">
-                        <NavLink to={'#'} className="mr-5">Home</NavLink>
-                        <NavLink to={'#'}><a>Service</a></NavLink>
-                        <NavLink to={'#'}><a>Booking</a></NavLink>
+                        <NavLink to={'/home'} className="mr-5">Home</NavLink>
+                        <NavLink to={'/services'} className="mr-5">Services</NavLink>
+                        <NavLink to={'/booking'} className="mr-5">Booking</NavLink>
+                        <NavLink to={'/reviews'} className="mr-5">Reviews</NavLink>
                         <NavLink to={'#'} className="mr-5">Dashboard</NavLink>
-                        <NavLink to={'#'} className="mr-5"><a>Login</a></NavLink>
+                        <NavLink to={'#'} className="">Login</NavLink>
                     </ul>
                 </div>
 

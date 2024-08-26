@@ -3,8 +3,13 @@
 @tailwind utilities;
 
 .navbar {
-  padding: 0px !important;
+  /* padding: 0px !important; */
+  background-color: rgb(39, 55, 92);
 }
+/* .text-xs {
+ 
+  line-height:1px !important;
+} */
 
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
