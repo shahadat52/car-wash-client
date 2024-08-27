@@ -1,15 +1,28 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { ColorRing } from 'react-loader-spinner';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useSignUpMutation } from '../redux/features/auth/authApi';
+import { toast } from 'sonner';
 
 const Register = () => {
     const [loading, setLoading] = useState(false)
     const { register, handleSubmit } = useForm()
+    const [signUp] = useSignUpMutation()
+    const navigate = useNavigate()
 
-    const handleForm = (data: FieldValues) => {
+    const handleForm = async (data: FieldValues) => {
         setLoading(true)
-        console.log(data);
+        const toastId = toast.loading('User creating', { duration: 2000 })
+        try {
+            await signUp(data).unwrap()
+            toast.success('Successful', { id: toastId, duration: 1000 })
+            navigate('/login')
+        } catch (error: any) {
+            console.log(error);
+            toast.error(`${error.data.message}`, { id: toastId, duration: 1000 })
+        }
         setLoading(false)
     }
     return (

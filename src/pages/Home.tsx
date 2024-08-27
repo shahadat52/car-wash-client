@@ -1,6 +1,9 @@
 import { NavLink } from "react-router-dom";
+import { useAppSelector } from "../redux/hooks";
 
 const Home = () => {
+    const state = useAppSelector(state => state.auth);
+    console.log(state);
     return (
         <div className="">
             <div

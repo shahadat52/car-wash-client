@@ -1,15 +1,40 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { useForm, FieldValues, } from "react-hook-form"
 import { ColorRing } from "react-loader-spinner";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../redux/features/auth/authApi";
+import { toast } from "sonner";
+import { jwtDecode } from "jwt-decode";
+import { useAppDispatch } from "../redux/hooks";
+import { setUser } from "../redux/features/auth/authSlice";
+import { TUser } from "../Interface/user";
 
 const Login = () => {
     const [loading, setLoading] = useState(false)
     const { register, handleSubmit } = useForm()
+    const [login] = useLoginMutation()
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
 
-    const handleForm = (data: FieldValues) => {
+    const handleForm = async (data: FieldValues) => {
         setLoading(true)
-        console.log(data);
+        const toastId = toast.loading('User creating', { duration: 2000 })
+
+        try {
+            const res = await login(data).unwrap()
+            const user = jwtDecode(res?.token) as TUser;
+            const userInfo = { email: user?.email, role: user?.role, token: res.token }
+            console.log(userInfo);
+            if (user) {
+                dispatch(setUser(userInfo))
+            }
+            toast.success('Successful', { id: toastId, duration: 1000 })
+            navigate('/login')
+        } catch (error: any) {
+            console.log(error);
+            toast.error(`failed`, { id: toastId, duration: 1000 })
+        }
         setLoading(false)
     }
     return (
@@ -42,7 +67,7 @@ const Login = () => {
                     }
 
                 </div>
-                <p>If you have no account <NavLink to='/register' className='font-bold link uppercase'>Register</NavLink></p>
+                <p>If you have no account <NavLink to='/signUp' className='font-bold link uppercase'>Register</NavLink></p>
             </form>
         </div>
     );
