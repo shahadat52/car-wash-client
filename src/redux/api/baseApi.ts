@@ -7,7 +7,6 @@ export const baseApi = createApi({
         baseUrl: 'http://localhost:5000/api',
         prepareHeaders: (headers, { getState }) => {
             const token = (getState() as RootState).auth.token;
-            console.log("base theke", token);
 
             // If we have a token set in state, let's assume that we should be passing it.
             if (token) {

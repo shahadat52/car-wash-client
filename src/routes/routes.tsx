@@ -1,10 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Home from "../pages/Home";
-import Service from "../pages/Service";
 import Booking from "../pages/Booking";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import Services from "../pages/Services";
+import ServiceDetails from "../components/ServiceDetails";
 
 export const router = createBrowserRouter([
     {
@@ -17,7 +18,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/services',
-                element: <Service />
+                element: <Services />
             },
             {
                 path: '/booking',
@@ -26,11 +27,15 @@ export const router = createBrowserRouter([
             {
                 path: '/login',
                 element: <Login />
-            }
-            ,
+            },
             {
                 path: '/signUp',
                 element: <Register />
+            },
+            {
+                path: '/services/:id',
+
+                element: <ServiceDetails />
             }
         ]
     }
