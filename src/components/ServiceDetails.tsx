@@ -1,34 +1,44 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useGetServicesByIdQuery } from '../redux/features/service/serviceApi';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from 'react';
+import { NavLink, useParams } from 'react-router-dom';
+import { useGetServiceByIdQuery } from '../redux/features/service/serviceApi';
+import { useGetAllSlotsQuery } from '../redux/features/booking/bookingApi';
+import { useAppDispatch } from '../redux/hooks';
+import { setSlot } from '../redux/features/booking/bookingSlice';
 
 type TimeSlot = {
-    time: string;
-    booked: boolean;
+    startTime: string;
+    endTime: string;
+    isBooked: string;
 };
 
 const ServiceDetails = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedSlot, setSelectedSlot] = useState<TimeSlot | null>(null);
-    const { id } = useParams();
-    console.log(id);
-    const { data } = useGetServicesByIdQuery(id)
-    const service = data?.data
-    console.log(service);
+    const dispatch = useAppDispatch()
 
-    // Sample time slots data
-    const timeSlots: TimeSlot[] = [
-        { time: '09:00 AM', booked: false },
-        { time: '10:00 AM', booked: true },
-        { time: '11:00 AM', booked: false },
-        { time: '01:00 PM', booked: false },
-        { time: '02:00 PM', booked: true },
-    ];
+    const { id } = useParams();
+    //fetch service by Id
+    const { data } = useGetServiceByIdQuery(id)
+    const service = data?.data
+
+    const params = {
+        date: selectedDate?.toISOString().split('T')[0],
+        service: id
+    }
+    //fetch slots
+    const { data: slotData } = useGetAllSlotsQuery(params)
+    const timeSlots: TimeSlot[] = slotData?.data?.map((item: any) => ({
+        startTime: item?.startTime,
+        endTime: item?.endTime,
+        isBooked: item?.isBooked
+    }))
+    // console.log(timeSlots);
 
     const handleSlotClick = (slot: TimeSlot) => {
-        if (!slot.booked) {
-            setSelectedSlot(slot);
-        }
+
+        dispatch(setSlot(slot))
+        setSelectedSlot(slot)
     };
 
     return (
@@ -51,28 +61,31 @@ const ServiceDetails = () => {
             <div className="mb-6">
                 <h3 className="text-xl font-semibold mb-2">Available Time Slots</h3>
                 <div className="grid grid-cols-2 gap-4">
-                    {timeSlots.map((slot, index) => (
+                    {timeSlots?.map((slot, index) => (
                         <button
                             key={index}
-                            disabled={slot.booked}
-                            className={`py-2 px-4 rounded ${slot.booked
-                                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                                : selectedSlot?.time === slot.time
+                            // disabled={slot.isBooked}
+                            className={`py-2 px-4 rounded ${slot?.isBooked === 'booked'
+                                ? 'bg-gray-400 text-gray-500 cursor-not-allowed'
+                                : selectedSlot?.startTime === slot.startTime
                                     ? 'bg-blue-500 text-white'
                                     : 'bg-green-500 text-white'
                                 }`}
                             onClick={() => handleSlotClick(slot)}
                         >
-                            {slot.time}
+                            <div className='flex justify-around'>
+                                <p>START TIME  {slot.startTime}</p>
+                                <p>END TIME{slot.endTime}</p>
+                            </div>
                         </button>
                     ))}
                 </div>
             </div>
 
             {selectedSlot && (
-                <button className="btn btn-primary mt-6">
+                <NavLink to={`/booking/${id}`} className="btn btn-primary mt-6">
                     Book This Service
-                </button>
+                </NavLink>
             )}
         </div>
     );

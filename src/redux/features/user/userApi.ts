@@ -1,19 +1,19 @@
 import { baseApi } from "../../api/baseApi";
 
-const serviceApi = baseApi.injectEndpoints({
+const userApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        getAllServices: builder.query({
+        getAllUser: builder.query({
             query: () => ({
                 url: '/services',
                 method: 'GET',
 
             })
         }),
-        getServiceById: builder.query({
+        getUserById: builder.query({
             query: (id) => {
                 console.log(id);
                 return {
-                    url: `/services/${id}`,
+                    url: `/user/${id}`,
                     method: 'GET',
                 }
             }
@@ -22,4 +22,4 @@ const serviceApi = baseApi.injectEndpoints({
 
 });
 
-export const { useGetAllServicesQuery, useGetServiceByIdQuery } = serviceApi
+export const { useGetAllUserQuery, useGetUserByIdQuery } = userApi

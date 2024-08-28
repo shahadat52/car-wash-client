@@ -1,41 +1,75 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, FieldValues, } from "react-hook-form"
 import { ColorRing } from "react-loader-spinner";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { toast } from "sonner";
 import { jwtDecode } from "jwt-decode";
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { setUser } from "../redux/features/auth/authSlice";
 import { TUser } from "../Interface/user";
 
 const Login = () => {
     const [loading, setLoading] = useState(false)
-    const { register, handleSubmit } = useForm()
-    const [login] = useLoginMutation()
+    const { register, handleSubmit, reset } = useForm()
     const navigate = useNavigate()
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
+    const { token } = useAppSelector(state => state.auth)
+
     const dispatch = useAppDispatch()
 
-    const handleForm = async (data: FieldValues) => {
+    const [login] = useLoginMutation()
+
+    useEffect(() => {
+        if (token) {
+            navigate(from, { replace: true });
+            reset();
+        }
+    }, [token, navigate, from, reset]);
+
+
+
+    const handleForm = async (data: FieldValues): Promise<void> => {
+        const toastId = toast.loading('Logging in', { duration: 2000 })
         setLoading(true)
-        const toastId = toast.loading('User creating', { duration: 2000 })
+        const userData = {
+            email: data.email,
+            password: data.password
+        }
 
         try {
-            const res = await login(data).unwrap()
-            const user = jwtDecode(res?.token) as TUser;
-            const userInfo = { email: user?.email, role: user?.role, token: res.token }
-            console.log(userInfo);
-            if (user) {
-                dispatch(setUser(userInfo))
+            const res = await login(userData)
+            if (res.data) {
+
+
+                const token = (res as any)?.data?.token;
+                toast.success(`${(res as any)?.data?.message}`, { id: toastId, duration: 2000 })
+
+                // eslint-disable-next-line prefer-const
+                let user: TUser = jwtDecode(token);
+                const userToken = {
+                    user: {
+                        id: user.id,
+                        name: user.name,
+                        email: user.email,
+                        role: user.role,
+                    },
+                    token
+                }
+                dispatch(setUser(userToken))
+                setLoading(false)
+            } else if (res.error) {
+                toast.error(`${(res.error as any)?.data?.message}`, { id: toastId, duration: 2000 })
+                setLoading(false)
             }
-            toast.success('Successful', { id: toastId, duration: 1000 })
-            navigate('/login')
-        } catch (error: any) {
+
+        } catch (error) {
             console.log(error);
-            toast.error(`failed`, { id: toastId, duration: 1000 })
+            toast.error(`${(error as any)?.data?.message}`, { id: toastId, duration: 2000 })
+            setLoading(false)
         }
-        setLoading(false)
     }
     return (
         <div className=" flex justify-center items-center h-[100vh] ">

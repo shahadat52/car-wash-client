@@ -1,19 +1,24 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Home from "../pages/Home";
-import Booking from "../pages/Booking";
+import Bookings from "../pages/Bookings";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Services from "../pages/Services";
 import ServiceDetails from "../components/ServiceDetails";
+import Booking from "../components/Booking";
+import ErrorPage from "../pages/ErrorPage";
+import Dashboard from "../pages/Dashboard";
+import PrivetRoute from "./PrivetRoute";
 
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <App />,
+        element: <PrivetRoute><App /></PrivetRoute>,
+        errorElement: <ErrorPage />,
         children: [
             {
-                path: '/home',
+                path: '/',
                 element: <Home />
             },
             {
@@ -21,22 +26,29 @@ export const router = createBrowserRouter([
                 element: <Services />
             },
             {
+                path: '/dashboard',
+                element: <PrivetRoute><Dashboard /></PrivetRoute>
+            },
+            {
                 path: '/booking',
-                element: <Booking />
-            },
-            {
-                path: '/login',
-                element: <Login />
-            },
-            {
-                path: '/signUp',
-                element: <Register />
+                element: <Bookings />
             },
             {
                 path: '/services/:id',
-
                 element: <ServiceDetails />
+            },
+            {
+                path: '/booking/:id',
+                element: <Booking />
             }
         ]
+    },
+    {
+        path: '/login',
+        element: <Login />
+    },
+    {
+        path: '/signUp',
+        element: <Register />
     }
 ])

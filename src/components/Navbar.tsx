@@ -1,6 +1,15 @@
 import { NavLink } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { logOut } from "../redux/features/auth/authSlice";
 
 const Navbar = () => {
+    const { token, user } = useAppSelector(state => state?.auth)
+    console.log(token, user);
+    const dispatch = useAppDispatch()
+
+    const handleLogOut = () => {
+        dispatch(logOut())
+    }
     return (
         <div>
             <div className="navbar text-white">
@@ -23,13 +32,15 @@ const Navbar = () => {
                         {/* Responsive part */}
                         <ul
                             tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            <NavLink to={'/home'} className="mr-5">Home</NavLink>
+                            className="flex flex-col gap-5 text-black menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                            <NavLink to={'/'} className="mr-5">Home</NavLink>
                             <NavLink to={'/services'} className="mr-5">Services</NavLink>
                             <NavLink to={'#'} className="mr-5">Booking</NavLink>
                             <NavLink to={'/reviews'} className="mr-5">Reviews</NavLink>
-                            <NavLink to={'#'} className="mr-5">Dashboard</NavLink>
-                            <NavLink to={'/login'} className="">Login</NavLink>
+                            <NavLink to={'/dashboard'} className="mr-5">Dashboard</NavLink>
+                            {
+                                token && user ? <NavLink to={'/login'} className="">Logout</NavLink> : <NavLink to={'/login'} className="">Login</NavLink>
+                            }
 
                         </ul>
                     </div>
@@ -37,12 +48,14 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-end hidden lg:flex">
                     <ul className="menu menu-horizontal">
-                        <NavLink to={'/home'} className="mr-5">Home</NavLink>
+                        <NavLink to={'/'} className="mr-5">Home</NavLink>
                         <NavLink to={'/services'} className="mr-5">Services</NavLink>
                         <NavLink to={'/booking'} className="mr-5">Booking</NavLink>
                         <NavLink to={'/reviews'} className="mr-5">Reviews</NavLink>
-                        <NavLink to={'#'} className="mr-5">Dashboard</NavLink>
-                        <NavLink to={'/login'} className="">Login</NavLink>
+                        <NavLink to={'/dashboard'} className="mr-5">Dashboard</NavLink>
+                        {
+                            token && user ? <button onClick={handleLogOut} className="">Logout</button> : <NavLink to={'/login'} className="">Login</NavLink>
+                        }
 
                     </ul>
                 </div>
