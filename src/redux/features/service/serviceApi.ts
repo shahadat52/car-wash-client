@@ -7,7 +7,8 @@ const serviceApi = baseApi.injectEndpoints({
                 url: '/services',
                 method: 'GET',
 
-            })
+            }),
+            providesTags: ["services"]
         }),
         getServiceById: builder.query({
             query: (id) => {
@@ -17,9 +18,20 @@ const serviceApi = baseApi.injectEndpoints({
                     method: 'GET',
                 }
             }
+        }),
+        addService: builder.mutation({
+            query: (data) => {
+                console.log(data);
+                return {
+                    url: '/services',
+                    method: 'POST',
+                    body: data
+                }
+            },
+            invalidatesTags: ['services']
         })
     })
 
 });
 
-export const { useGetAllServicesQuery, useGetServiceByIdQuery } = serviceApi
+export const { useGetAllServicesQuery, useGetServiceByIdQuery, useAddServiceMutation } = serviceApi

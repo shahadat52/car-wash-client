@@ -1,3 +1,4 @@
+import { NavLink, Outlet } from "react-router-dom";
 import { TUser } from "../Interface/user";
 import { useAppSelector } from "../redux/hooks";
 
@@ -8,11 +9,10 @@ const Dashboard = () => {
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content flex flex-col items-center justify-center">
+            <div className="drawer-content flex flex-col ">
                 {/* Page content here */}
-                <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">
-                    Open drawer
-                </label>
+                <Outlet />
+
             </div>
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
@@ -20,10 +20,18 @@ const Dashboard = () => {
                     {/* Sidebar content here */}
                     {
                         user?.role === 'admin' &&
-                        <div>
-                            <li><a>Service Management</a></li>
-                            <li><a>Slot Management</a></li>
-                            <li><a>User Management</a></li>
+                        <div className="flex flex-col gap-5">
+                            {/* <details className="dropdown">
+                                <summary className="">Service Management</summary>
+                                <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                                    <NavLink to={'/dashboard/service'}>Create Service</NavLink>
+                                    <NavLink to={'/dashboard/service'}>Create Service</NavLink>
+                                    <li><a>Item 2</a></li>
+                                </ul>
+                            </details> */}
+                            <NavLink to={'/dashboard/service'}>Service Management</NavLink>
+                            <NavLink to={'/dashboard/slot'}>Slot Management</NavLink>
+                            <NavLink to={'/dashboard/user'}>User Management</NavLink>
                         </div>
                     }
                     {

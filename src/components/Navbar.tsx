@@ -46,8 +46,8 @@ const Navbar = () => {
                     </div>
                     <NavLink to={'/'} className="hidden  lg:flex font-bold text-xl">Car Wash</NavLink>
                 </div>
-                <div className="navbar-end hidden lg:flex">
-                    <ul className="menu menu-horizontal">
+                <div className="navbar-end ">
+                    <ul className="menu menu-horizontal hidden lg:flex">
                         <NavLink to={'/'} className="mr-5">Home</NavLink>
                         <NavLink to={'/services'} className="mr-5">Services</NavLink>
                         <NavLink to={'/booking'} className="mr-5">Booking</NavLink>
@@ -58,7 +58,23 @@ const Navbar = () => {
                         }
 
                     </ul>
+
+                    <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M4 6h16M4 12h8m-8 6h16" />
+                        </svg>
+                    </label>
                 </div>
+
 
             </div>
         </div>

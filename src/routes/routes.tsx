@@ -10,6 +10,7 @@ import Booking from "../components/Booking";
 import ErrorPage from "../pages/ErrorPage";
 import Dashboard from "../pages/Dashboard";
 import PrivetRoute from "./PrivetRoute";
+import ServiceManagement from "../components/ServiceManagement";
 
 export const router = createBrowserRouter([
     {
@@ -27,7 +28,13 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/dashboard',
-                element: <PrivetRoute><Dashboard /></PrivetRoute>
+                element: <PrivetRoute><Dashboard /></PrivetRoute>,
+                children: [
+                    {
+                        path: '/dashboard/service',
+                        element: <ServiceManagement />
+                    }
+                ]
             },
             {
                 path: '/booking',
