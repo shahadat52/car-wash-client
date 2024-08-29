@@ -13,6 +13,7 @@ import PrivetRoute from "./PrivetRoute";
 import ServiceManagement from "../components/ServiceManagement";
 import SlotManagement from "../components/Slot/SlotManagement";
 import UserManagement from "../components/User/UserManagement";
+import Reviews from "../pages/Reviews";
 
 export const router = createBrowserRouter([
     {
@@ -27,6 +28,11 @@ export const router = createBrowserRouter([
             {
                 path: '/services',
                 element: <Services />
+            },
+
+            {
+                path: '/reviews',
+                element: <Reviews />
             },
             {
                 path: '/dashboard/',
