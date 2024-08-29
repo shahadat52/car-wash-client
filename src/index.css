@@ -6,6 +6,19 @@
   /* padding: 0px !important; */
   background-color: rgb(39, 55, 92);
 }
+
+.select {
+  border-radius: 0px !important;
+  
+}
+.select:focus {
+  box-shadow: none;
+  border-color: var(--fallback-bc,oklch(var(--bc)/0.2));
+  outline-style: solid;
+  outline-width: 0px !important;
+  outline-offset: 2px;
+  outline-color: var(--fallback-bc,oklch(var(--bc)/0.2));
+}
 /* .text-xs {
  
   line-height:1px !important;

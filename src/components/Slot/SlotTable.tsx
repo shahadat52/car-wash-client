@@ -1,12 +1,12 @@
-import { useGetAllSlotsQuery, useSlotStatusUpdateMutation } from '../../redux/features/booking/bookingApi';
+
 import { TSlot } from '../../Interface/TSlots';
+import { useGetAllSlotsQuery, useSlotStatusUpdateMutation } from '../../redux/features/slot/slotApi';
 
 const SlotTable = () => {
     const { data } = useGetAllSlotsQuery({})
     const [statusUpdate] = useSlotStatusUpdateMutation()
     const slots = data?.data
-    const services = data?.data?.map((item: TSlot) => item?.service?.name)
-    console.log(services);
+    // const services = data?.data?.map((item: TSlot) => item?.service?.name)
 
     const handleStatusToggle = (slot: TSlot) => {
         const confirmDelete = window.confirm('Are you sure you want to update status for this service?');

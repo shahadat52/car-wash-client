@@ -83,7 +83,7 @@ const UpdateServiceModal: React.FC<UpdateServiceModalProps> = ({ setUpdateModal,
                         onClick={handleSubmit}
                         disabled={!name || !description || price <= 0 || duration <= 0}
                     >
-                        Add Service
+                        Update Service
                     </button>
                 </div>
             </div>

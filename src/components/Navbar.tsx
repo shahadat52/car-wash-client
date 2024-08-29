@@ -3,8 +3,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { logOut } from "../redux/features/auth/authSlice";
 
 const Navbar = () => {
-    const { token, user } = useAppSelector(state => state?.auth)
-    console.log(token, user);
+    const { token, user } = useAppSelector(state => state?.auth);
     const dispatch = useAppDispatch()
 
     const handleLogOut = () => {

@@ -2,9 +2,9 @@
 import { useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { useGetServiceByIdQuery } from '../redux/features/service/serviceApi';
-import { useGetAllSlotsQuery } from '../redux/features/booking/bookingApi';
 import { useAppDispatch } from '../redux/hooks';
 import { setSlot } from '../redux/features/booking/bookingSlice';
+import { useGetAllSlotsQuery } from '../redux/features/slot/slotApi';
 
 type TimeSlot = {
     startTime: string;

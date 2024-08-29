@@ -13,7 +13,7 @@ const Services = () => {
     return (
         <div>
             <h1 className="text-2xl font-bold text-center mt-5 uppercase">Our Services</h1>
-            <div className="mt-5 flex gap-5 justify-center">
+            <div className="mt-5 grid md:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-5 mx-auto">
                 {
                     isLoading ? <Spinner /> :
                         services?.map((service: TService) => (<Service key={service._id} service={service} />))
