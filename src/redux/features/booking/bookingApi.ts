@@ -1,3 +1,4 @@
+
 import { baseApi } from "../../api/baseApi";
 
 const bookingApi = baseApi.injectEndpoints({
@@ -12,12 +13,21 @@ const bookingApi = baseApi.injectEndpoints({
             query: (params) => {
                 const date = params.date
                 const service = params.service
+                let query = params
+                if (params.date && params.service) {
+                    query = `service=${service}&date=${date}`
+                }
+
                 return {
-                    url: `/slots/availability?service=${service}&date=${date}`,
+                    url: `/slots/availability?${query}`,
                     method: 'GET',
                 }
-            }
-        })
+            },
+            providesTags: ['slots']
+        }),
+
+
+
     })
 });
 

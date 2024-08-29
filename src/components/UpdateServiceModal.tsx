@@ -1,18 +1,22 @@
+
 import { Dispatch, SetStateAction, useState } from 'react';
-import { Service } from '../Interface/TService';
-import { MdOutlineCancel } from "react-icons/md";
+import { MdOutlineCancel } from 'react-icons/md';
+import { TService } from '../Interface/TService';
+import { useUpdateServiceMutation } from '../redux/features/service/serviceApi';
 
 
-type AddServiceModalProps = {
-    onAdd: (service: Service) => void;
-    setAddServiceModal: Dispatch<SetStateAction<boolean>>;
+type UpdateServiceModalProps = {
+    setUpdateModal: Dispatch<SetStateAction<boolean>>;
+    service: TService
 }
-const AddServiceModal: React.FC<AddServiceModalProps> = ({ onAdd, setAddServiceModal }) => {
 
-    const [name, setName] = useState('');
+const UpdateServiceModal: React.FC<UpdateServiceModalProps> = ({ setUpdateModal, service }) => {
+    const [name, setName] = useState(service?.name);
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
     const [duration, setDuration] = useState(0);
+    const [serviceUpdate, result] = useUpdateServiceMutation()
+
 
     const handleSubmit = () => {
         const serviceData = {
@@ -21,17 +25,22 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({ onAdd, setAddServiceM
             price,
             duration
         }
-        onAdd(serviceData);
+        const data = {
+            id: service._id,
+            data: serviceData
+        }
+        serviceUpdate(data)
+        setUpdateModal(false)
     };
 
-
+    console.log(result);
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
             <div className="bg-white p-6 rounded-lg">
                 <section className='flex justify-between items-baseline'>
-                    <h2 className="text-2xl mb-4">Add Service</h2>
+                    <h2 className="text-2xl mb-4">Update Service</h2>
                     <div
-                        onClick={() => setAddServiceModal(false)}
+                        onClick={() => setUpdateModal(false)}
                         className='text-2xl'>
                         <MdOutlineCancel />
                     </div>
@@ -40,7 +49,7 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({ onAdd, setAddServiceM
                     className="border mb-2 p-2 w-full"
                     type="text"
                     placeholder="Name"
-                    value={name}
+                    defaultValue={service?.name}
                     required
                     onChange={(e) => setName(e.target.value)}
                 />
@@ -48,7 +57,7 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({ onAdd, setAddServiceM
                     className="border mb-2 p-2 w-full"
                     type="text"
                     placeholder="Description"
-                    value={description}
+                    defaultValue={service?.description}
                     required
                     onChange={(e) => setDescription(e.target.value)}
                 />
@@ -56,6 +65,7 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({ onAdd, setAddServiceM
                     className="border mb-4 p-2 w-full"
                     type="number"
                     placeholder="Price"
+                    defaultValue={service?.price}
                     required
                     onChange={(e) => setPrice(Number(e.target.value))}
                 />
@@ -63,6 +73,7 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({ onAdd, setAddServiceM
                     className="border mb-4 p-2 w-full"
                     type="number"
                     placeholder="Duration"
+                    defaultValue={service?.duration}
                     required
                     onChange={(e) => setDuration(Number(e.target.value))}
                 />
@@ -80,4 +91,4 @@ const AddServiceModal: React.FC<AddServiceModalProps> = ({ onAdd, setAddServiceM
     );
 };
 
-export default AddServiceModal;
+export default UpdateServiceModal;

@@ -1,20 +1,29 @@
-import React from 'react';
-import { useGetAllServicesQuery } from '../redux/features/service/serviceApi';
+import { useDeleteServiceMutation, useGetAllServicesQuery } from '../redux/features/service/serviceApi';
 import { TService } from '../Interface/TService';
+import { Dispatch, SetStateAction } from 'react';
 
-const ServiceTable = () => {
+
+type ServiceTableProps = {
+    setUpdateModal: Dispatch<SetStateAction<boolean>>;
+    setUpdateId: Dispatch<SetStateAction<string>>
+}
+const ServiceTable: React.FC<ServiceTableProps> = ({ setUpdateModal, setUpdateId }) => {
     const { data } = useGetAllServicesQuery(undefined);
+    const [deleteService] = useDeleteServiceMutation()
+    // const [updateService] = useUpdateServiceMutation()
     const services = data?.data
 
-    const handleUpdate = (id: string) => {
-        // handle update logic here
-        console.log(id);
-    };
-
+    // const handleUpdate = (id: string) => {
+    //     // handle update logic here
+    //     console.log(id);
+    // };
     const handleDelete = (id: string) => {
         // handle delete logic here
         console.log(id);
-
+        const confirmDelete = window.confirm('Are you sure you want to delete this service?');
+        if (confirmDelete) {
+            deleteService(id)
+        }
     };
     return (
         <div className="container mx-auto p-4">
@@ -36,7 +45,10 @@ const ServiceTable = () => {
                             <td className="py-2 px-4 border-b text-center">
                                 <button
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded mr-2"
-                                    onClick={() => handleUpdate(service._id)}
+                                    onClick={() => {
+                                        setUpdateModal(true);
+                                        setUpdateId(service._id)
+                                    }}
                                 >
                                     Update
                                 </button>

@@ -11,6 +11,8 @@ import ErrorPage from "../pages/ErrorPage";
 import Dashboard from "../pages/Dashboard";
 import PrivetRoute from "./PrivetRoute";
 import ServiceManagement from "../components/ServiceManagement";
+import SlotManagement from "../components/Slot/SlotManagement";
+import UserManagement from "../components/User/UserManagement";
 
 export const router = createBrowserRouter([
     {
@@ -27,12 +29,20 @@ export const router = createBrowserRouter([
                 element: <Services />
             },
             {
-                path: '/dashboard',
+                path: '/dashboard/',
                 element: <PrivetRoute><Dashboard /></PrivetRoute>,
                 children: [
                     {
                         path: '/dashboard/service',
                         element: <ServiceManagement />
+                    },
+                    {
+                        path: '/dashboard/slot',
+                        element: <SlotManagement />
+                    },
+                    {
+                        path: '/dashboard/user',
+                        element: <UserManagement />
                     }
                 ]
             },
