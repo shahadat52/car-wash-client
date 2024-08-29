@@ -9,14 +9,9 @@ type ServiceTableProps = {
 }
 const ServiceTable: React.FC<ServiceTableProps> = ({ setUpdateModal, setUpdateId }) => {
     const { data } = useGetAllServicesQuery(undefined);
-    const [deleteService] = useDeleteServiceMutation()
-    // const [updateService] = useUpdateServiceMutation()
+    const [deleteService] = useDeleteServiceMutation();
     const services = data?.data
 
-    // const handleUpdate = (id: string) => {
-    //     // handle update logic here
-    //     console.log(id);
-    // };
     const handleDelete = (id: string) => {
         // handle delete logic here
         console.log(id);

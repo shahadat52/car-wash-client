@@ -26,9 +26,17 @@ const bookingApi = baseApi.injectEndpoints({
             providesTags: ['slots']
         }),
 
-
+        slotStatusUpdate: builder.mutation({
+            query: (id) => {
+                return {
+                    url: `/slots/${id}`,
+                    method: 'PUT',
+                }
+            },
+            invalidatesTags: ['slots']
+        }),
 
     })
 });
 
-export const { useGetAllBookingsQuery, useGetAllSlotsQuery } = bookingApi
+export const { useGetAllBookingsQuery, useGetAllSlotsQuery, useSlotStatusUpdateMutation } = bookingApi
