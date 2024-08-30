@@ -14,6 +14,7 @@ import ServiceManagement from "../components/ServiceManagement";
 import SlotManagement from "../components/Slot/SlotManagement";
 import UserManagement from "../components/User/UserManagement";
 import Reviews from "../pages/Reviews";
+import UserBookings from "../components/User/UserBookings";
 
 export const router = createBrowserRouter([
     {
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
                     {
                         path: '/dashboard/user',
                         element: <UserManagement />
+                    },
+                    {
+                        path: '/dashboard/bookings',
+                        element: <UserBookings />
                     }
                 ]
             },

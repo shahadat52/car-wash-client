@@ -22,8 +22,8 @@ const Service: React.FC<ServiceProps> = ({ service }) => {
                 </div>
 
                 <p className="text-justify">{service?.description}</p>
-                <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Book Now</button>
+                <div className="card-actions justify-end gap-2">
+                    <button className="bg-primary hover:bg-blue-700 text-white font-bold h-11 px-3 rounded">Book Now</button>
                 </div>
             </div>
         </NavLink>

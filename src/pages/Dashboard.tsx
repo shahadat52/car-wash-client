@@ -5,6 +5,7 @@ import { useAppSelector } from "../redux/hooks";
 
 const Dashboard = () => {
     const user = useAppSelector((state) => state.auth.user) as TUser | null;
+    console.log(user);
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -19,23 +20,29 @@ const Dashboard = () => {
                     {/* Sidebar content here */}
                     {
                         user?.role === 'admin' &&
-                        <div className="flex flex-col gap-5">
-                            <NavLink to={'/dashboard/service'}>Service Management</NavLink>
-                            <NavLink to={'/dashboard/slot'}>Slot Management</NavLink>
-                            <NavLink to={'/dashboard/user'}>User Management</NavLink>
+                        <div className="flex flex-col gap-2">
+                            <li><NavLink to={'/dashboard/service'}>Service Management</NavLink></li>
+                            <li><NavLink to={'/dashboard/slot'}>Slot Management</NavLink></li>
+                            <details className="dropdown">
+                                <summary className="mb-2" >User Management</summary>
+                                <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow gap-2">
+                                    <li> <NavLink to={'/dashboard/user'}>All Users</NavLink></li>
+                                    <li> <NavLink to={'/dashboard/bookings'}>Booking Management</NavLink></li>
+                                </ul>
+                            </details>
                         </div>
                     }
                     {
                         user?.role === 'user' &&
-                        <div>
-                            <li><a>Update Your Profile</a></li>
-                            <li><a>Your Bookings</a></li>
+                        <div className="flex flex-col gap-2">
+                            <li><NavLink to={'/dashboard/profile'}>Update Your Profile</NavLink></li>
+                            <li><NavLink to={'/dashboard/my-bookings'}>Your Bookings</NavLink></li>
                         </div>
                     }
 
                 </ul>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

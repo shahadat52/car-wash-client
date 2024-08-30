@@ -4,6 +4,7 @@ import { RootState } from "../store";
 export const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery: fetchBaseQuery({
+        // https://car-wash-server-pink.vercel.app/api
         baseUrl: `${import.meta.env.VITE_LOCAL_URL}`,
         prepareHeaders: (headers, { getState }) => {
             const token = (getState() as RootState).auth.token;
@@ -16,6 +17,6 @@ export const baseApi = createApi({
             return headers
         },
     }),
-    tagTypes: ['services', 'bookings', 'slots'],
+    tagTypes: ['services', 'bookings', 'slots', 'users'],
     endpoints: () => ({})
 })

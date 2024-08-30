@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useGetServiceByIdQuery } from "../redux/features/service/serviceApi";
 import { useAppSelector } from "../redux/hooks";
 import { TUser } from "../Interface/user";
-import { TSlot } from "../Interface/booking";
+import { TSlot } from "../Interface/TBooking";
 
 const Booking = () => {
     const { id } = useParams();

@@ -1,9 +1,12 @@
+import UsersTable from "./UsersTable";
 
 
 const UserManagement = () => {
     return (
-        <div>
-            <h1>User</h1>
+        <div className="m-2">
+            <h1 className="text-4xl uppercase font-bold text-center my-2 ">All Users</h1>
+            <hr />
+            <UsersTable />
         </div>
     );
 };

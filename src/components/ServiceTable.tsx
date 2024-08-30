@@ -39,7 +39,7 @@ const ServiceTable: React.FC<ServiceTableProps> = ({ setUpdateModal, setUpdateId
                             <td className="py-2 px-4 border-b text-center">{service.price}</td>
                             <td className="py-2 px-4 border-b text-center">
                                 <button
-                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded mr-2"
+                                    className="bg-primary hover:bg-blue-700 text-white font-bold py-1 px-3 rounded mr-2"
                                     onClick={() => {
                                         setUpdateModal(true);
                                         setUpdateId(service._id)
