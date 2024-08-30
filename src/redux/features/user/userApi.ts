@@ -15,7 +15,7 @@ const userApi = baseApi.injectEndpoints({
             query: (id) => {
                 console.log(id);
                 return {
-                    url: `/user/${id}`,
+                    url: `/users/${id}`,
                     method: 'GET',
                 }
             }
@@ -30,8 +30,21 @@ const userApi = baseApi.injectEndpoints({
             },
             invalidatesTags: ['users']
         }),
+        updateProfile: builder.mutation({
+            query: (data) => {
+                console.log(data);
+                const id = data?.id;
+                const userData = data?.user
+                return {
+                    url: `/users/profile/${id}`,
+                    method: 'PUT',
+                    body: userData
+                }
+            },
+            invalidatesTags: ['users']
+        }),
     })
 
 });
 
-export const { useGetAllUserQuery, useGetUserByIdQuery, useUpdateUserRoleMutation } = userApi
+export const { useGetAllUserQuery, useGetUserByIdQuery, useUpdateUserRoleMutation, useUpdateProfileMutation } = userApi

@@ -16,12 +16,18 @@ const Register = () => {
         setLoading(true)
         const toastId = toast.loading('User creating', { duration: 2000 })
         try {
-            await signUp(data).unwrap()
-            toast.success('Successful', { id: toastId, duration: 1000 })
-            navigate('/login')
+            const res = await signUp(data)
+
+            if (res?.data) {
+                toast.success('Successful', { id: toastId, duration: 1000 })
+                navigate('/login')
+            } else if (res?.error) {
+                toast.error(`Operation Failed`, { id: toastId, duration: 1000 })
+            }
         } catch (error: any) {
             console.log(error);
             toast.error(`${error.data.message}`, { id: toastId, duration: 1000 })
+            setLoading(false)
         }
         setLoading(false)
     }

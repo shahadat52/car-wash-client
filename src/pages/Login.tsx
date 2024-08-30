@@ -42,8 +42,6 @@ const Login = () => {
         try {
             const res = await login(userData)
             if (res.data) {
-
-
                 const token = (res as any)?.data?.token;
                 toast.success(`${(res as any)?.data?.message}`, { id: toastId, duration: 2000 })
 
@@ -61,6 +59,7 @@ const Login = () => {
                 dispatch(setUser(userToken))
                 setLoading(false)
             } else if (res.error) {
+                console.log(res.error);
                 toast.error(`${(res.error as any)?.data?.message}`, { id: toastId, duration: 2000 })
                 setLoading(false)
             }
