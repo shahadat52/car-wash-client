@@ -12,7 +12,6 @@ const serviceApi = baseApi.injectEndpoints({
         }),
         getServiceById: builder.query({
             query: (id) => {
-                console.log(id);
                 return {
                     url: `/services/${id}`,
                     method: 'GET',
@@ -42,7 +41,6 @@ const serviceApi = baseApi.injectEndpoints({
         }),
         updateService: builder.mutation({
             query: (data) => {
-                console.log(data);
                 return {
                     url: `/services/${data?.id}`,
                     method: 'PUT',

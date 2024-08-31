@@ -16,6 +16,7 @@ import Reviews from "../pages/Reviews";
 import UserBookings from "../components/User/UserBookings";
 import ProfileUpdate from "../components/profile/ProfileUpdate";
 import MyBookings from "../components/my-bookings/MyBookings";
+import AdminPrivetRoute from "./AdminPrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -42,19 +43,19 @@ export const router = createBrowserRouter([
                 children: [
                     {
                         path: '/dashboard/service',
-                        element: <ServiceManagement />
+                        element: <AdminPrivetRoute><ServiceManagement /></AdminPrivetRoute>
                     },
                     {
                         path: '/dashboard/slot',
-                        element: <SlotManagement />
+                        element: <AdminPrivetRoute><SlotManagement /></AdminPrivetRoute>
                     },
                     {
                         path: '/dashboard/user',
-                        element: <UserManagement />
+                        element: <AdminPrivetRoute> <UserManagement /></AdminPrivetRoute>
                     },
                     {
                         path: '/dashboard/bookings',
-                        element: <UserBookings />
+                        element: <AdminPrivetRoute><UserBookings /></AdminPrivetRoute>
                     },
                     {
                         path: '/dashboard/profile/:id',

@@ -28,6 +28,7 @@ const ServiceDetails = () => {
     }
     //fetch slots
     const { data: slotData } = useGetAllSlotsQuery(params)
+
     const timeSlots: TimeSlot[] = slotData?.data?.map((item: any) => ({
         _id: item?._id,
         startTime: item?.startTime,
@@ -35,7 +36,6 @@ const ServiceDetails = () => {
         isBooked: item?.isBooked
 
     }))
-    // console.log(timeSlots);
 
     const handleSlotClick = (slot: TimeSlot) => {
 
@@ -84,7 +84,7 @@ const ServiceDetails = () => {
                 </div>
             </div>
 
-            {selectedSlot && (
+            {selectedSlot && selectedSlot.isBooked !== 'booked' && (
                 <NavLink to={`/booking/${id}`} className="btn btn-primary mt-6">
                     Book This Service
                 </NavLink>

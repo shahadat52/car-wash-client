@@ -15,17 +15,14 @@ const bookingApi = baseApi.injectEndpoints({
             invalidatesTags: ['bookings']
         }),
         getAllBookings: builder.query({
-            query: ({ id }) => {
-                console.log(id);
-                const params = new URLSearchParams();
-                if (id) params.append('customer', id);
-                // if (date) params.append('date', date);
+            query: () => {
 
                 return {
-                    url: `/bookings/?${params.toString()}`,
+                    url: `/bookings`,
                     method: 'GET',
                 }
-            }
+            },
+            providesTags: ['bookings']
         }),
         getBookingsByCustomer: builder.query({
             query: () => {

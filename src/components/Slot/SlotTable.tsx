@@ -22,6 +22,7 @@ const SlotTable = () => {
                     <tr>
                         <th className="font-bold py-2 px-4 border">Service</th>
                         <th className="py-2 px-4 border">Time</th>
+                        <th className="py-2 px-4 border">Date</th>
                         <th className="py-2 px-4 border">Status</th>
                         <th className="py-2 px-4 border">Actions</th>
                     </tr>
@@ -30,6 +31,7 @@ const SlotTable = () => {
                     {slots?.map((slot: TSlot) => (
                         <tr key={slot._id} className='text-center'>
                             <td className="py-2 px-4 border">{slot?.service?.name}</td>
+                            <td className="py-2 px-4 border">{slot?.date}</td>
                             <td className="py-2 px-4 border">{slot?.startTime} -  {slot?.endTime}</td>
                             <td className={`font-bold uppercase py-2 px-4 border ${slot?.isBooked === 'booked' ? 'text-gray-400' : slot?.isBooked === 'canceled' ? 'text-red-500' : 'text-blue-500 hover:text-blue-700'
                                 }`}>{slot?.isBooked}</td>
