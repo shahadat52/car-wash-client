@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Home from "../pages/Home";
-import Bookings from "../pages/Bookings";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Services from "../pages/Services";
@@ -62,14 +61,14 @@ export const router = createBrowserRouter([
                         element: <ProfileUpdate />
                     },
                     {
-                        path: '/dashboard/my-bookings',
+                        path: '/dashboard/my-bookings/:id',
                         element: <MyBookings />
                     }
                 ]
             },
             {
                 path: '/booking',
-                element: <Bookings />
+                element: <MyBookings />
             },
             {
                 path: '/services/:id',

@@ -29,9 +29,11 @@ const ServiceDetails = () => {
     //fetch slots
     const { data: slotData } = useGetAllSlotsQuery(params)
     const timeSlots: TimeSlot[] = slotData?.data?.map((item: any) => ({
+        _id: item?._id,
         startTime: item?.startTime,
         endTime: item?.endTime,
         isBooked: item?.isBooked
+
     }))
     // console.log(timeSlots);
 

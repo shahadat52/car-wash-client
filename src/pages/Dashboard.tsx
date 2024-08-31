@@ -36,7 +36,7 @@ const Dashboard = () => {
                         user?.role === 'user' &&
                         <div className="flex flex-col gap-2">
                             <li><NavLink to={`/dashboard/profile/${user?.id}`}>Update Your Profile</NavLink></li>
-                            <li><NavLink to={'/dashboard/my-bookings'}>Your Bookings</NavLink></li>
+                            <li><NavLink to={`/dashboard/my-bookings/${user?.id}`}>Your Bookings</NavLink></li>
                         </div>
                     }
 
