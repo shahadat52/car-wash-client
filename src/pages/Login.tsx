@@ -11,8 +11,8 @@ import { setUser } from "../redux/features/auth/authSlice";
 import { TUser } from "../Interface/user";
 
 const Login = () => {
-    const [loading, setLoading] = useState(false)
-    const { register, handleSubmit, reset } = useForm()
+    const [loading, setLoading] = useState(false);
+    const { register, reset, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate()
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
@@ -77,11 +77,37 @@ const Login = () => {
                 <h1 className="text-center mb-10 uppercase font-bold">Login your Account</h1>
                 <div>
                     <p>Email</p>
-                    <input type="text" placeholder="Enter Email" className="input input-bordered w-full max-w-xs" autoComplete="email" {...register('email')} required />
+                    <input
+                        type="email"
+                        placeholder="Enter Email"
+                        className="input input-bordered w-full max-w-xs"
+                        autoComplete="email"
+                        {...register('email', {
+                            required: 'Email is required',
+                            pattern: {
+                                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                message: 'Invalid email format'
+                            }
+                        })}
+                    />
+                    {errors.email && typeof errors.email.message === 'string' && <p className="text-red-500">{errors.email.message}</p>}
                 </div>
                 <div>
                     <p>Password</p>
-                    <input type="password" placeholder="Enter Password" className="input input-bordered w-full max-w-xs" autoComplete="password"  {...register('password')} required />
+                    <input
+                        type="password"
+                        placeholder="Enter Password"
+                        className="input input-bordered w-full max-w-xs"
+                        {...register('password', {
+                            required: 'Password is required',
+                            minLength: {
+                                value: 4,
+                                message: 'Password must be 4 characters long'
+                            }
+                        })}
+                    />
+                    {errors.password && typeof errors.password.message === 'string' && <p className="text-red-500">{errors.password.message}</p>}
+
                 </div>
                 <div className="w-full flex justify-center mt-10" >
 
